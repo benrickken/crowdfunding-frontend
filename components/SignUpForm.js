@@ -1,31 +1,22 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { APIRoot, APIEndpoints } from '../constants'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import firebase from '../utils/Firebase'
 
 export default function SignUpForm() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault()
 
-    axios
-      .post(
-        APIEndpoints.AUTH,
-        {
-          email: email,
-          password: password,
-          password_confirmation: passwordConfirmation,
-        },
-        { withCredentials: true }
-      )
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    try {
+      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
