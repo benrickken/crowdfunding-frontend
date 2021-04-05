@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from '../utils/Firebase'
 
@@ -6,7 +6,6 @@ export default function SignUpForm() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -34,13 +33,6 @@ export default function SignUpForm() {
         placeholder='パスワード'
         value={password}
         onChange={event => setPassword(event.target.value)}
-      />
-      <input
-        type='password'
-        name='password_confirmation'
-        placeholder='確認用パスワード'
-        value={passwordConfirmation}
-        onChange={event => setPasswordConfirmation(event.target.value)}
       />
 
       <button type='submit'>登録</button>
