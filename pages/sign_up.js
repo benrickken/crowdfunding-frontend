@@ -1,11 +1,10 @@
-import Header from '../components/Header'
+import Layout from '../components/Layout'
 import SignUpForm from '../components/SignUpForm'
 
 export default function SignUp() {
   return (
-    <>
-      <Header />
+    <Layout>
       <SignUpForm />
-    </>
+    </Layout>
   )
 }

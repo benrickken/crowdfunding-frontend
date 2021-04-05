@@ -1,11 +1,10 @@
-import Header from '../components/Header'
+import Layout from '../components/Layout'
 import LogInForm from '../components/LogInForm'
 
 export default function LogIn() {
   return (
-    <>
-      <Header />
+    <Layout>
       <LogInForm />
-    </>
+    </Layout>
   )
 }

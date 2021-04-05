@@ -1,15 +1,5 @@
-import Head from 'next/head'
-import Header from '../components/Header'
+import Layout from '../components/Layout'
 
 export default function Home() {
-  return (
-    <div>
-      <Head>
-        <title>Crowdfunding</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-
-      <Header />
-    </div>
-  )
+  return <Layout />
 }
