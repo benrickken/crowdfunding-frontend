@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from '../utils/Firebase'
 
-export default function SignUpForm() {
+export default function LogInForm() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -11,7 +11,7 @@ export default function SignUpForm() {
     event.preventDefault()
 
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      await firebase.auth().signInWithEmailAndPassword(email, password)
       router.push('/')
     } catch (error) {
       console.log(error)
@@ -35,7 +35,7 @@ export default function SignUpForm() {
         onChange={event => setPassword(event.target.value)}
       />
 
-      <button type='submit'>登録</button>
+      <button type='submit'>ログイン</button>
     </form>
   )
 }
