@@ -29,6 +29,9 @@ export default function Header() {
           <ul>
             {currentUser ? (
               <>
+                <Link href='/projects/new'>
+                  <a>はじめる</a>
+                </Link>
                 <Link href='/'>
                   <a>{currentUser.email}</a>
                 </Link>
