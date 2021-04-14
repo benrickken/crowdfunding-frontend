@@ -7,7 +7,7 @@ export default function Home({ projects }) {
   return (
     <Layout>
       {projects.map(project => (
-        <Project project={project} />
+        <Project key={project.id} project={project} />
       ))}
     </Layout>
   )
