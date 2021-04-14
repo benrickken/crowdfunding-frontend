@@ -1,11 +1,11 @@
 import { useContext } from 'react'
 import Link from 'next/Link'
 import styles from './Header.module.scss'
-import { AuthContext } from '../contexts/Auth'
+import useAuthState from '../hooks/useAuthState'
 import firebase from '../utils/Firebase'
 
 export default function Header() {
-  const { currentUser } = useContext(AuthContext)
+  const { user, loading } = useAuthState()
 
   const logOut = async () => {
     try {
@@ -27,28 +27,29 @@ export default function Header() {
         </div>
         <nav className={styles.headerNav}>
           <ul>
-            {currentUser ? (
-              <>
-                <Link href='/projects/new'>
-                  <a>はじめる</a>
-                </Link>
-                <Link href='/'>
-                  <a>{currentUser.email}</a>
-                </Link>
-                <a style={{ cursor: 'pointer' }} onClick={logOut}>
-                  Log out
-                </a>
-              </>
-            ) : (
-              <>
-                <Link href='/log_in'>
-                  <a>Log in</a>
-                </Link>
-                <Link href='/sign_up'>
-                  <a>Sign up</a>
-                </Link>
-              </>
-            )}
+            {!loading &&
+              (user ? (
+                <>
+                  <Link href='/projects/new'>
+                    <a>はじめる</a>
+                  </Link>
+                  <Link href='/profile'>
+                    <a>{user.email}</a>
+                  </Link>
+                  <a style={{ cursor: 'pointer' }} onClick={logOut}>
+                    Log out
+                  </a>
+                </>
+              ) : (
+                <>
+                  <Link href='/log_in'>
+                    <a>Log in</a>
+                  </Link>
+                  <Link href='/sign_up'>
+                    <a>Sign up</a>
+                  </Link>
+                </>
+              ))}
           </ul>
         </nav>
       </div>
