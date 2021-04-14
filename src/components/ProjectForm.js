@@ -1,10 +1,9 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import firebase from '../utils/Firebase'
 import { APIEndpoints } from '../constants'
 
-export default function ProjectForm() {
+export default function ProjectForm({ user }) {
   const router = useRouter()
   const [title, setTitle] = useState('')
   const [targetAmount, setTargetAmount] = useState('')
@@ -22,7 +21,7 @@ export default function ProjectForm() {
     }
 
     try {
-      const token = await firebase.auth().currentUser.getIdToken()
+      const token = await user.getIdToken()
       const config = { headers: { authorization: `Token ${token}` } }
       await axios.post(APIEndpoints.PROJECTS, projectParams, config)
 
