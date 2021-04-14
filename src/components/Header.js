@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import Link from 'next/Link'
 import styles from './Header.module.scss'
 import useAuthState from '../hooks/useAuthState'
