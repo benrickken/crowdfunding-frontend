@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from './Header'
 import styles from './Layout.module.scss'
 
-export default function Layout({ children }) {
+export default function Layout({ user, loading = false, children }) {
   return (
     <>
       <Head>
@@ -10,7 +10,7 @@ export default function Layout({ children }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header />
+      <Header user={user} loading={loading} />
 
       <main>
         <div className={styles.container}>{children}</div>

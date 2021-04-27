@@ -1,11 +1,8 @@
 import Link from 'next/Link'
 import styles from './Header.module.scss'
-import useAuthState from '../hooks/useAuthState'
 import firebase from '../utils/Firebase'
 
-export default function Header() {
-  const { user, loading } = useAuthState()
-
+export default function Header({ user, loading }) {
   const logOut = async () => {
     try {
       await firebase.auth().signOut()
@@ -32,7 +29,7 @@ export default function Header() {
                   <Link href='/projects/new'>
                     <a>はじめる</a>
                   </Link>
-                  <Link href='/profile'>
+                  <Link href='/'>
                     <a>{user.email}</a>
                   </Link>
                   <a style={{ cursor: 'pointer' }} onClick={logOut}>
