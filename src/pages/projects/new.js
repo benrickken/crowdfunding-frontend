@@ -5,5 +5,9 @@ import ProjectForm from '../../components/ProjectForm'
 export default function ProjectsNew() {
   const { user, loading } = useAuthState({ required: true })
 
-  return <Layout>{!loading && <ProjectForm user={user} />}</Layout>
+  return (
+    <Layout user={user} loading={loading}>
+      {!loading && <ProjectForm user={user} />}
+    </Layout>
+  )
 }
