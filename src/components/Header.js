@@ -32,8 +32,8 @@ export default function Header() {
                   <Link href='/projects/new'>
                     <a>はじめる</a>
                   </Link>
-                  <Link href='/profile'>
-                    <a>{user.email}</a>
+                  <Link href='/'>
+                    <a>{user.displayName}</a>
                   </Link>
                   <a style={{ cursor: 'pointer' }} onClick={logOut}>
                     Log out
