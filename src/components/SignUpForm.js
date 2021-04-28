@@ -6,6 +6,7 @@ import { APIEndpoints } from '../constants'
 
 export default function SignUpForm() {
   const router = useRouter()
+  const [displayName, setDisplayName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -14,7 +15,11 @@ export default function SignUpForm() {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
-      const token = await firebase.auth().currentUser.getIdToken()
+
+      const { currentUser } = firebase.auth()
+      await currentUser.updateProfile({ displayName })
+
+      const token = await currentUser.getIdToken()
       const config = { headers: { authorization: `Token ${token}` } }
       await axios.post(APIEndpoints.USERS, {}, config)
 
@@ -26,6 +31,13 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        type='text'
+        name='displayName'
+        placeholder='ユーザー名'
+        value={displayName}
+        onChange={event => setDisplayName(event.target.value)}
+      />
       <input
         type='email'
         name='email'

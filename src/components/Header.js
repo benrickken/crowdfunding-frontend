@@ -30,7 +30,7 @@ export default function Header({ user, loading }) {
                     <a>はじめる</a>
                   </Link>
                   <Link href='/'>
-                    <a>{user.email}</a>
+                    <a>{user.displayName}</a>
                   </Link>
                   <a style={{ cursor: 'pointer' }} onClick={logOut}>
                     Log out
