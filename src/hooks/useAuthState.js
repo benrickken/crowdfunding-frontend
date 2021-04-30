@@ -20,7 +20,7 @@ export default function useAuthState({ required } = {}) {
         const token = await user.getIdToken()
         const config = { headers: { authorization: `Token ${token}` } }
         const userFromAPI = await axios.get(`${APIEndpoints.USERS}/me`, config)
-        user = { ...user, ...userFromAPI.data }
+        Object.assign(user, userFromAPI.data)
       }
 
       setUser(user)
