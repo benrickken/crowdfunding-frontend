@@ -3,13 +3,19 @@ import { APIEndpoints } from '../../constants'
 import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import Project from '../../components/Project'
+import ProjectReturn from '../../components/ProjectReturn'
 
 export default function ProjectsShow({ project }) {
   const { user, loading } = useAuthState()
 
   return (
     <Layout user={user} loading={loading}>
-      <Project key={project.id} project={project} />
+      <Project project={project} />
+      <div>Returns:</div>
+
+      {project.projectReturns.map(projectReturn => (
+        <ProjectReturn key={projectReturn.id} projectReturn={projectReturn} />
+      ))}
     </Layout>
   )
 }
