@@ -1,6 +1,8 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import firebase from '../utils/Firebase'
+import { APIEndpoints } from '../constants'
 
 export default function useAuthState({ required } = {}) {
   const router = useRouter()
@@ -8,10 +10,17 @@ export default function useAuthState({ required } = {}) {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(async user => {
       if (required && !user) {
         router.push('/log_in')
         return
+      }
+
+      if (user) {
+        const token = await user.getIdToken()
+        const config = { headers: { authorization: `Token ${token}` } }
+        const userFromAPI = await axios.get(`${APIEndpoints.USERS}/me`, config)
+        user = { ...user, ...userFromAPI.data }
       }
 
       setUser(user)
