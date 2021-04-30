@@ -14,7 +14,7 @@ export default function ProjectsShow({ project }) {
       <div>Returns:</div>
 
       {project.projectReturns.map(projectReturn => (
-        <ProjectReturn key={projectReturn.id} projectReturn={projectReturn} />
+        <ProjectReturn key={projectReturn.id} projectReturn={projectReturn} user={user} />
       ))}
     </Layout>
   )
