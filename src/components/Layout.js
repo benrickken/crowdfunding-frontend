@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Header from './Header'
-import styles from './Layout.module.scss'
+import Container from '@material-ui/core/Container'
 
 export default function Layout({ user, loading = false, children }) {
   return (
@@ -13,7 +13,7 @@ export default function Layout({ user, loading = false, children }) {
       <Header user={user} loading={loading} />
 
       <main>
-        <div className={styles.container}>{children}</div>
+        <Container>{children}</Container>
       </main>
     </>
   )
