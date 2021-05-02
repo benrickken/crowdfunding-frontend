@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import firebase from '../utils/Firebase'
@@ -40,9 +40,9 @@ export default function LogInForm() {
             margin='normal'
             required
             fullWidth
-            id='email'
             label='Email Address'
             name='email'
+            type='email'
             autoComplete='email'
             autoFocus
             value={email}
@@ -53,10 +53,9 @@ export default function LogInForm() {
             margin='normal'
             required
             fullWidth
-            name='password'
             label='Password'
+            name='password'
             type='password'
-            id='password'
             autoComplete='current-password'
             value={password}
             onChange={event => setPassword(event.target.value)}
@@ -72,7 +71,7 @@ export default function LogInForm() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href='#' variant='body2'>
+              <Link href='/sign_up' variant='body2'>
                 Don't have an account? Sign Up
               </Link>
             </Grid>
