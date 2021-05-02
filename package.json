@@ -9,6 +9,7 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
     "axios": "^0.21.1",
     "firebase": "^8.3.2",
     "next": "10.0.9",

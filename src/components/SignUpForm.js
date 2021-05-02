@@ -1,10 +1,18 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/Link'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import firebase from '../utils/Firebase'
 import { APIEndpoints } from '../constants'
 
 export default function SignUpForm() {
+  const classes = useStyles()
   const router = useRouter()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -28,30 +36,75 @@ export default function SignUpForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type='text'
-        name='name'
-        placeholder='ユーザー名'
-        value={name}
-        onChange={event => setName(event.target.value)}
-      />
-      <input
-        type='email'
-        name='email'
-        placeholder='メールアドレス'
-        value={email}
-        onChange={event => setEmail(event.target.value)}
-      />
-      <input
-        type='password'
-        name='password'
-        placeholder='パスワード'
-        value={password}
-        onChange={event => setPassword(event.target.value)}
-      />
-
-      <button type='submit'>登録</button>
-    </form>
+    <Container component='main' maxWidth='xs'>
+      <div className={classes.paper}>
+        <Typography component='h1' variant='h5'>
+          Sign up
+        </Typography>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Username'
+            name='name'
+            autoComplete='name'
+            autoFocus
+            value={name}
+            onChange={event => setName(event.target.value)}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Email Address'
+            name='email'
+            type='email'
+            autoComplete='email'
+            autoFocus
+            value={email}
+            onChange={event => setEmail(event.target.value)}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            label='Password'
+            name='password'
+            type='password'
+            autoComplete='current-password'
+            value={password}
+            onChange={event => setPassword(event.target.value)}
+          />
+          <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+            Sign up
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link href='/log_in' variant='body2'>
+                Already have an account? Log in
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   )
 }
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  form: {
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}))

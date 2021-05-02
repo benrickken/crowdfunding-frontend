@@ -1,8 +1,14 @@
 import Link from 'next/Link'
-import styles from './Header.module.scss'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import firebase from '../utils/Firebase'
 
 export default function Header({ user, loading }) {
+  const classes = useStyles()
+
   const logOut = async () => {
     try {
       await firebase.auth().signOut()
@@ -12,43 +18,46 @@ export default function Header({ user, loading }) {
   }
 
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.logo}>
-          <Link href='/'>
-            <a>
-              <img src='/logo.svg' alt='Crowdfunding Logo' />
-            </a>
-          </Link>
-        </div>
-        <nav className={styles.headerNav}>
-          <ul>
-            {!loading &&
-              (user ? (
-                <>
-                  <Link href='/projects/new'>
-                    <a>はじめる</a>
-                  </Link>
-                  <Link href='/'>
-                    <a>{user.name}</a>
-                  </Link>
-                  <a style={{ cursor: 'pointer' }} onClick={logOut}>
-                    Log out
-                  </a>
-                </>
-              ) : (
-                <>
-                  <Link href='/log_in'>
-                    <a>Log in</a>
-                  </Link>
-                  <Link href='/sign_up'>
-                    <a>Sign up</a>
-                  </Link>
-                </>
-              ))}
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <AppBar position='static'>
+      <Toolbar>
+        <Link href='/'>
+          <Typography variant='h6' className={classes.title}>
+            Crowdfunding
+          </Typography>
+        </Link>
+        {!loading &&
+          (user ? (
+            <>
+              <Link href='/projects/new'>
+                <Button color='inherit'>はじめる</Button>
+              </Link>
+              <Link href='/'>
+                <Button color='inherit'>{user.name}</Button>
+              </Link>
+              <a style={{ cursor: 'pointer' }} onClick={logOut}>
+                <Button color='inherit'>Log out</Button>
+              </a>
+            </>
+          ) : (
+            <>
+              <Link href='/log_in'>
+                <Button color='inherit'>Log in</Button>
+              </Link>
+              <Link href='/sign_up'>
+                <Button color='inherit'>Sign up</Button>
+              </Link>
+            </>
+          ))}
+      </Toolbar>
+    </AppBar>
   )
 }
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+}))

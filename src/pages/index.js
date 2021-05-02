@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 import { APIEndpoints } from '../constants'
 import useAuthState from '../hooks/useAuthState'
 import Layout from '../components/Layout'
@@ -9,9 +11,16 @@ export default function Home({ projects }) {
 
   return (
     <Layout user={user} loading={loading}>
-      {projects.map(project => (
-        <Project key={project.id} project={project} />
-      ))}
+      <Typography gutterBottom variant='h3' component='h1'>
+        Projects
+      </Typography>
+      <Grid container spacing={6}>
+        {projects.map(project => (
+          <Grid key={project.id} item sm={6} md={4}>
+            <Project project={project} />
+          </Grid>
+        ))}
+      </Grid>
     </Layout>
   )
 }

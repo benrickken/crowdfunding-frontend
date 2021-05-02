@@ -1,17 +1,42 @@
 import Link from 'next/Link'
-import styles from './Project.module.scss'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
 
 export default function Project({ project }) {
+  const classes = useStyles()
+
   return (
-    <div className={styles.container}>
-      <img src='https://static.camp-fire.jp/uploads/project_version/image/627521/6f7c647f-4dba-46a1-abe3-b1e9dc7588d0.jpg' />
-      <Link href={`/projects/${project.id}`}>
-        <a className={styles.title}>{project.title}</a>
-      </Link>
-      <div>作成者: {project.user.name}</div>
-      <div>目標金額: {project.targetAmount}円</div>
-      <div>終了日: {project.dueDate}</div>
-      <div>{project.description}</div>
-    </div>
+    <Link href={`/projects/${project.id}`}>
+      <Card className={classes.root}>
+        <CardMedia
+          className={classes.media}
+          image='https://static.camp-fire.jp/uploads/project_version/image/627521/6f7c647f-4dba-46a1-abe3-b1e9dc7588d0.jpg'
+          title={project.title}
+        />
+        <CardContent>
+          <Typography gutterBottom variant='h5' component='h2'>
+            {project.title}
+          </Typography>
+          <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
+            目標金額: {project.targetAmount} 募集終了日: {project.dueDate}
+          </Typography>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            {project.description}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
+
+const useStyles = makeStyles({
+  root: {
+    cursor: 'pointer',
+  },
+  media: {
+    height: 140,
+  },
+})

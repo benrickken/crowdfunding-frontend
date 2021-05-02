@@ -1,8 +1,11 @@
 import Head from 'next/head'
 import Header from './Header'
-import styles from './Layout.module.scss'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 
 export default function Layout({ user, loading = false, children }) {
+  const classes = useStyles()
+
   return (
     <>
       <Head>
@@ -13,8 +16,14 @@ export default function Layout({ user, loading = false, children }) {
       <Header user={user} loading={loading} />
 
       <main>
-        <div className={styles.container}>{children}</div>
+        <Container className={classes.container}>{children}</Container>
       </main>
     </>
   )
 }
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: 100,
+  },
+}))
