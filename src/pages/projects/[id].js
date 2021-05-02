@@ -9,7 +9,7 @@ import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturn from '../../components/ProjectReturn'
 
-export default function ProjectsShow({ project }) {
+export default function ProjectsShow({ project, projectReturns }) {
   const classes = useStyles()
   const { user, loading } = useAuthState()
 
@@ -52,7 +52,7 @@ export default function ProjectsShow({ project }) {
       </Typography>
 
       <Grid container spacing={6}>
-        {project.projectReturns.map(projectReturn => (
+        {projectReturns.map(projectReturn => (
           <Grid key={projectReturn.id} item sm={6} md={4}>
             <ProjectReturn projectReturn={projectReturn} user={user} />
           </Grid>
@@ -64,10 +64,12 @@ export default function ProjectsShow({ project }) {
 
 export async function getServerSideProps(context) {
   const { id } = context.params
-  const res = await axios.get(`${APIEndpoints.PROJECTS}/${id}`)
-  const { project } = res.data
+  const resForProject = await axios.get(`${APIEndpoints.PROJECTS}/${id}`)
+  const { project } = resForProject.data
+  const resForProjectReturns = await axios.get(`${APIEndpoints.PROJECTS}/${id}/project_returns`)
+  const { projectReturns } = resForProjectReturns.data
 
-  return { props: { project } }
+  return { props: { project, projectReturns } }
 }
 
 const useStyles = makeStyles({
