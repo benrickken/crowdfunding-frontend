@@ -47,7 +47,7 @@ export default function ProjectsShow({ project }) {
         </Grid>
       </Grid>
 
-      <Typography gutterBottom variant='h5'>
+      <Typography className={classes.return} variant='h5'>
         リターンを選ぶ
       </Typography>
 
@@ -70,4 +70,8 @@ export async function getServerSideProps(context) {
   return { props: { project } }
 }
 
-const useStyles = makeStyles({})
+const useStyles = makeStyles({
+  return: {
+    margin: '30px 0',
+  },
+})
