@@ -16,8 +16,8 @@ export default function Home({ projects }) {
       </Typography>
       <Grid container spacing={6}>
         {projects.map(project => (
-          <Grid item xs={12} sm={6} md={4}>
-            <Project key={project.id} project={project} />
+          <Grid key={project.id} item xs={12} sm={6} md={4}>
+            <Project project={project} />
           </Grid>
         ))}
       </Grid>
