@@ -41,7 +41,7 @@ export default function Header({ user, loading }) {
           ) : (
             <>
               <Link href='/log_in'>
-                <Button color='inherit'>Login</Button>
+                <Button color='inherit'>Log in</Button>
               </Link>
               <Link href='/sign_up'>
                 <Button color='inherit'>Sign up</Button>
