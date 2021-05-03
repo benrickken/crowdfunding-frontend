@@ -36,7 +36,7 @@ export default function ProjectsShow({ project, projectReturns }) {
                 支援者数
               </Typography>
               <Typography variant='h3' gutterBottom>
-                10 人
+                {project.supportersCount} 人
               </Typography>
               <Typography color='textSecondary' gutterBottom>
                 募集終了日
