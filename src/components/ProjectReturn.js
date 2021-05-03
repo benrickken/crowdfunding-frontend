@@ -36,7 +36,7 @@ export default function ProjectReturn({ projectReturn, user }) {
           </Typography>
 
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
-            人数: {projectReturn.capacity}
+            支援者数: {projectReturn.supportersCount} (最大: {projectReturn.capacity})
           </Typography>
 
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
