@@ -13,10 +13,20 @@ import ProjectReturn from '../../components/ProjectReturn'
 export default function ProjectsShow(props) {
   const classes = useStyles()
   const { user, loading } = useAuthState()
-  const { data: project, mutate } = useSWR(`${APIEndpoints.PROJECTS}/${props.project.id}`, projectFetcher, {
-    initialData: props.project,
-  })
-  const { projectReturns } = props
+  const { data: project, mutate: mutateProject } = useSWR(
+    `${APIEndpoints.PROJECTS}/${props.project.id}`,
+    projectFetcher,
+    {
+      initialData: props.project,
+    }
+  )
+  const { data: projectReturns, mutate: mutateProjectReturns } = useSWR(
+    `${APIEndpoints.PROJECTS}/${props.project.id}/project_returns`,
+    projectReturnsFetcher,
+    {
+      initialData: props.projectReturns,
+    }
+  )
 
   const handleSupportButtonClick = projectReturnId => async event => {
     event.preventDefault()
@@ -25,7 +35,8 @@ export default function ProjectsShow(props) {
       const token = await user.getIdToken()
       const config = { headers: { authorization: `Token ${token}` } }
       await axios.post(APIEndpoints.PROJECT_SUPPORTS, { project_return_id: projectReturnId }, config)
-      mutate()
+      mutateProject()
+      mutateProjectReturns()
     } catch (error) {
       console.log(error)
     }
@@ -81,12 +92,12 @@ export default function ProjectsShow(props) {
 }
 
 const projectFetcher = url => axios.get(url).then(res => res.data.project)
+const projectReturnsFetcher = url => axios.get(url).then(res => res.data.projectReturns)
 
 export async function getServerSideProps(context) {
   const { id } = context.params
   const project = await projectFetcher(`${APIEndpoints.PROJECTS}/${id}`)
-  const resForProjectReturns = await axios.get(`${APIEndpoints.PROJECTS}/${id}/project_returns`)
-  const { projectReturns } = resForProjectReturns.data
+  const projectReturns = await projectReturnsFetcher(`${APIEndpoints.PROJECTS}/${id}/project_returns`)
 
   return { props: { project, projectReturns } }
 }
