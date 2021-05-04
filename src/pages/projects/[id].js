@@ -1,4 +1,5 @@
 import axios from 'axios'
+import useSWR from 'swr'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -9,9 +10,37 @@ import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturn from '../../components/ProjectReturn'
 
-export default function ProjectsShow({ project, projectReturns }) {
+export default function ProjectsShow(props) {
   const classes = useStyles()
   const { user, loading } = useAuthState()
+  const { data: project, mutate: mutateProject } = useSWR(
+    `${APIEndpoints.PROJECTS}/${props.project.id}`,
+    projectFetcher,
+    {
+      initialData: props.project,
+    }
+  )
+  const { data: projectReturns, mutate: mutateProjectReturns } = useSWR(
+    `${APIEndpoints.PROJECTS}/${props.project.id}/project_returns`,
+    projectReturnsFetcher,
+    {
+      initialData: props.projectReturns,
+    }
+  )
+
+  const handleSupportButtonClick = projectReturnId => async event => {
+    event.preventDefault()
+
+    try {
+      const token = await user.getIdToken()
+      const config = { headers: { authorization: `Token ${token}` } }
+      await axios.post(APIEndpoints.PROJECT_SUPPORTS, { project_return_id: projectReturnId }, config)
+      mutateProject()
+      mutateProjectReturns()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Layout user={user} loading={loading}>
@@ -54,7 +83,7 @@ export default function ProjectsShow({ project, projectReturns }) {
       <Grid container spacing={6}>
         {projectReturns.map(projectReturn => (
           <Grid key={projectReturn.id} item sm={6} md={4}>
-            <ProjectReturn projectReturn={projectReturn} user={user} />
+            <ProjectReturn projectReturn={projectReturn} handleSupportButtonClick={handleSupportButtonClick} />
           </Grid>
         ))}
       </Grid>
@@ -62,12 +91,13 @@ export default function ProjectsShow({ project, projectReturns }) {
   )
 }
 
+const projectFetcher = url => axios.get(url).then(res => res.data.project)
+const projectReturnsFetcher = url => axios.get(url).then(res => res.data.projectReturns)
+
 export async function getServerSideProps(context) {
   const { id } = context.params
-  const resForProject = await axios.get(`${APIEndpoints.PROJECTS}/${id}`)
-  const { project } = resForProject.data
-  const resForProjectReturns = await axios.get(`${APIEndpoints.PROJECTS}/${id}/project_returns`)
-  const { projectReturns } = resForProjectReturns.data
+  const project = await projectFetcher(`${APIEndpoints.PROJECTS}/${id}`)
+  const projectReturns = await projectReturnsFetcher(`${APIEndpoints.PROJECTS}/${id}/project_returns`)
 
   return { props: { project, projectReturns } }
 }
