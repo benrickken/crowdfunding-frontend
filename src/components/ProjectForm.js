@@ -27,9 +27,7 @@ export default function ProjectForm({ user }) {
     }
 
     try {
-      const token = await user.getIdToken()
-      const config = { headers: { authorization: `Token ${token}` } }
-      await request.post('/projects', projectParams, config)
+      await request.post('/projects', projectParams)
 
       router.push('/')
     } catch (error) {

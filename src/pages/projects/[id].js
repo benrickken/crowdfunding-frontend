@@ -27,9 +27,7 @@ export default function ProjectsShow(props) {
     event.preventDefault()
 
     try {
-      const token = await user.getIdToken()
-      const config = { headers: { authorization: `Token ${token}` } }
-      await request.post('/project_supports', { project_return_id: projectReturnId }, config)
+      await request.post('/project_supports', { project_return_id: projectReturnId })
       mutateProject()
       mutateProjectReturns()
     } catch (error) {

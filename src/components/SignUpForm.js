@@ -22,11 +22,7 @@ export default function SignUpForm() {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
-
-      const { currentUser } = firebase.auth()
-      const token = await currentUser.getIdToken()
-      const config = { headers: { authorization: `Token ${token}` } }
-      await request.post('/users', { name }, config)
+      await request.post('/users', { name })
 
       router.push('/')
     } catch (error) {

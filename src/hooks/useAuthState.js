@@ -16,9 +16,7 @@ export default function useAuthState({ required } = {}) {
       }
 
       if (user) {
-        const token = await user.getIdToken()
-        const config = { headers: { authorization: `Token ${token}` } }
-        const userFromAPI = await request.get('/users/me', config)
+        const userFromAPI = await request.get('/users/me')
         Object.assign(user, userFromAPI.data)
       }
 
