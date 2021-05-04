@@ -1,7 +1,6 @@
-import axios from 'axios'
+import request from '../utils/request'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { APIEndpoints } from '../constants'
 import useAuthState from '../hooks/useAuthState'
 import Layout from '../components/Layout'
 import Project from '../components/Project'
@@ -26,7 +25,7 @@ export default function Home({ projects }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await axios.get(APIEndpoints.PROJECTS)
+  const res = await request.get('/projects')
   const { projects } = res.data
 
   return { props: { projects } }

@@ -1,11 +1,10 @@
-import axios from 'axios'
+import request from '../../utils/request'
 import useSWR from 'swr'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import { APIEndpoints } from '../../constants'
 import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturn from '../../components/ProjectReturn'
@@ -13,15 +12,11 @@ import ProjectReturn from '../../components/ProjectReturn'
 export default function ProjectsShow(props) {
   const classes = useStyles()
   const { user, loading } = useAuthState()
-  const { data: project, mutate: mutateProject } = useSWR(
-    `${APIEndpoints.PROJECTS}/${props.project.id}`,
-    projectFetcher,
-    {
-      initialData: props.project,
-    }
-  )
+  const { data: project, mutate: mutateProject } = useSWR(`/projects/${props.project.id}`, projectFetcher, {
+    initialData: props.project,
+  })
   const { data: projectReturns, mutate: mutateProjectReturns } = useSWR(
-    `${APIEndpoints.PROJECTS}/${props.project.id}/project_returns`,
+    `/projects/${props.project.id}/project_returns`,
     projectReturnsFetcher,
     {
       initialData: props.projectReturns,
@@ -32,9 +27,7 @@ export default function ProjectsShow(props) {
     event.preventDefault()
 
     try {
-      const token = await user.getIdToken()
-      const config = { headers: { authorization: `Token ${token}` } }
-      await axios.post(APIEndpoints.PROJECT_SUPPORTS, { project_return_id: projectReturnId }, config)
+      await request.post('/project_supports', { project_return_id: projectReturnId })
       mutateProject()
       mutateProjectReturns()
     } catch (error) {
@@ -91,13 +84,13 @@ export default function ProjectsShow(props) {
   )
 }
 
-const projectFetcher = url => axios.get(url).then(res => res.data.project)
-const projectReturnsFetcher = url => axios.get(url).then(res => res.data.projectReturns)
+const projectFetcher = url => request.get(url).then(res => res.data.project)
+const projectReturnsFetcher = url => request.get(url).then(res => res.data.projectReturns)
 
 export async function getServerSideProps(context) {
   const { id } = context.params
-  const project = await projectFetcher(`${APIEndpoints.PROJECTS}/${id}`)
-  const projectReturns = await projectReturnsFetcher(`${APIEndpoints.PROJECTS}/${id}/project_returns`)
+  const project = await projectFetcher(`/projects/${id}`)
+  const projectReturns = await projectReturnsFetcher(`/projects/${id}/project_returns`)
 
   return { props: { project, projectReturns } }
 }

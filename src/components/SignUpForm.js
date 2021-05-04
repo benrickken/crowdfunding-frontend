@@ -1,4 +1,4 @@
-import axios from 'axios'
+import request from '../utils/request'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/Link'
@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import firebase from '../utils/Firebase'
-import { APIEndpoints } from '../constants'
 
 export default function SignUpForm() {
   const classes = useStyles()
@@ -23,11 +22,7 @@ export default function SignUpForm() {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
-
-      const { currentUser } = firebase.auth()
-      const token = await currentUser.getIdToken()
-      const config = { headers: { authorization: `Token ${token}` } }
-      await axios.post(APIEndpoints.USERS, { name }, config)
+      await request.post('/users', { name })
 
       router.push('/')
     } catch (error) {
