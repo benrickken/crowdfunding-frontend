@@ -6,6 +6,6 @@
 
 <!-- Explain in detail what was changed in this PR -->
 
-## What was not changed
+## Related Links
 
-<!-- Explain if something is left out of the scope of this PR -->
+<!-- Add related links -->
