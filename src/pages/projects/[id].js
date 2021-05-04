@@ -27,10 +27,10 @@ export default function ProjectsShow({ project, projectReturns }) {
           <Card>
             <CardContent>
               <Typography color='textSecondary' gutterBottom>
-                目標金額
+                合計金額
               </Typography>
               <Typography variant='h3' gutterBottom>
-                ¥ {project.targetAmount}
+                ¥ {project.supportedAmount} (目標: ¥ {project.targetAmount})
               </Typography>
               <Typography color='textSecondary' gutterBottom>
                 支援者数
