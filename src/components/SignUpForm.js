@@ -22,9 +22,8 @@ export default function SignUpForm() {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
+      router.push('/') // Redirect and unmount before the following request to avoid error in useAuthState
       await request.post('/users', { name })
-
-      router.push('/')
     } catch (error) {
       console.log(error)
     }

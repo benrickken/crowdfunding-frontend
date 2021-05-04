@@ -9,20 +9,28 @@ export default function useAuthState({ required } = {}) {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
+    let isMounted = true
+
     firebase.auth().onAuthStateChanged(async user => {
-      if (required && !user) {
-        router.push('/log_in')
-        return
-      }
+      if (isMounted) {
+        if (required && !user) {
+          router.push('/log_in')
+          return
+        }
 
-      if (user) {
-        const userFromAPI = await request.get('/users/me')
-        Object.assign(user, userFromAPI.data)
-      }
+        if (user) {
+          const userFromAPI = await request.get('/users/me')
+          Object.assign(user, userFromAPI.data)
+        }
 
-      setUser(user)
-      setLoading(false)
+        setUser(user)
+        setLoading(false)
+      }
     })
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return { user, loading }
