@@ -1,4 +1,4 @@
-import axios from 'axios'
+import request from '../utils/request'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Typography from '@material-ui/core/Typography'
-import { APIEndpoints } from '../constants'
 
 export default function ProjectForm({ user }) {
   const classes = useStyles()
@@ -30,7 +29,7 @@ export default function ProjectForm({ user }) {
     try {
       const token = await user.getIdToken()
       const config = { headers: { authorization: `Token ${token}` } }
-      await axios.post(APIEndpoints.PROJECTS, projectParams, config)
+      await request.post('/projects', projectParams, config)
 
       router.push('/')
     } catch (error) {
