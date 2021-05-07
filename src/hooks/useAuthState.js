@@ -19,7 +19,7 @@ export default function useAuthState({ required } = {}) {
         }
 
         if (user) {
-          const userFromAPI = await request.get('/users/me')
+          const userFromAPI = await request.get('/me')
           Object.assign(user, userFromAPI.data)
         }
 

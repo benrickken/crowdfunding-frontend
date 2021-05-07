@@ -31,7 +31,7 @@ export default function Header({ user, loading }) {
               <Link href='/projects/new'>
                 <Button color='inherit'>はじめる</Button>
               </Link>
-              <Link href='/'>
+              <Link href='/profile'>
                 <Button color='inherit'>{user.name}</Button>
               </Link>
               <a style={{ cursor: 'pointer' }} onClick={logOut}>
