@@ -1,3 +1,4 @@
+import { formatDistance } from 'date-fns'
 import Link from 'next/link'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -21,7 +22,7 @@ export default function Project({ project }) {
             {project.title}
           </Typography>
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
-            目標金額: {project.targetAmount} 募集終了日: {project.dueDate}
+            目標金額: {project.targetAmount} 残り: {formatDistance(new Date(project.dueDate), new Date())}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
             {project.description}

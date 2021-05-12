@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -26,7 +27,7 @@ export default function ProjectReturn({ projectReturn, handleSupportButtonClick 
           </Typography>
 
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
-            お届予定: {projectReturn.deliveryDate}
+            お届予定: {format(new Date(projectReturn.deliveryDate), 'yyyy年MM月')}
           </Typography>
 
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
