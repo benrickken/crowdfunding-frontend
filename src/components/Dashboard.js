@@ -1,5 +1,6 @@
 import useSWR from 'swr'
 import request from '../utils/request'
+import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Project from '../components/Project'
@@ -13,31 +14,39 @@ export default function Dashboard() {
 
   return (
     <>
-      <Typography gutterBottom variant='h3' component='h1'>
-        支援したプロジェクト
-      </Typography>
-      {backedProjects && (
-        <Grid container spacing={6}>
-          {backedProjects.map(project => (
-            <Grid key={project.id} item sm={6} md={4}>
-              <Project project={project} />
-            </Grid>
-          ))}
-        </Grid>
-      )}
+      <Box mb={5}>
+        <Typography gutterBottom variant='h3'>
+          支援したプロジェクト
+        </Typography>
+        {backedProjects && backedProjects.length > 0 ? (
+          <Grid container>
+            {backedProjects.map(project => (
+              <Grid key={project.id} item sm={6} md={4}>
+                <Project project={project} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Typography>支援したプロジェクトはありません</Typography>
+        )}
+      </Box>
 
-      <Typography gutterBottom variant='h3' component='h1'>
-        投稿したプロジェクト
-      </Typography>
-      {projects && (
-        <Grid container spacing={6}>
-          {projects.map(project => (
-            <Grid key={project.id} item sm={6} md={4}>
-              <Project project={project} />
-            </Grid>
-          ))}
-        </Grid>
-      )}
+      <Box mb={5}>
+        <Typography gutterBottom variant='h3'>
+          投稿したプロジェクト
+        </Typography>
+        {projects && projects.length > 0 ? (
+          <Grid container>
+            {projects.map(project => (
+              <Grid key={project.id} item sm={6} md={4}>
+                <Project project={project} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Typography>投稿したプロジェクトはありません</Typography>
+        )}
+      </Box>
     </>
   )
 }
