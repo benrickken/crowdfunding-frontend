@@ -7,14 +7,16 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Typography from '@material-ui/core/Typography'
+import ProjectReturnForm from './ProjectReturnForm'
 
-export default function ProjectForm({ user }) {
+export default function ProjectForm() {
   const classes = useStyles()
   const router = useRouter()
   const [title, setTitle] = useState('')
   const [targetAmount, setTargetAmount] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [description, setDescription] = useState('')
+  const [projectReturn, setProjectReturn] = useState({})
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -24,6 +26,7 @@ export default function ProjectForm({ user }) {
       target_amount: targetAmount,
       due_date: dueDate,
       description,
+      project_returns_attributes: [projectReturn],
     }
 
     try {
@@ -62,7 +65,7 @@ export default function ProjectForm({ user }) {
             type='number'
             label='目標金額'
             name='target_amount'
-            InputProps={{ startAdornment: <InputAdornment position='start'>$</InputAdornment> }}
+            InputProps={{ startAdornment: <InputAdornment position='start'>¥</InputAdornment> }}
             value={targetAmount}
             onChange={event => setTargetAmount(event.target.value)}
           />
@@ -93,6 +96,8 @@ export default function ProjectForm({ user }) {
             value={description}
             onChange={event => setDescription(event.target.value)}
           />
+
+          <ProjectReturnForm setProjectReturn={setProjectReturn} />
 
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
             作成

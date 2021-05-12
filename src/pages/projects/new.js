@@ -7,7 +7,7 @@ export default function ProjectsNew() {
 
   return (
     <Layout user={user} loading={loading}>
-      {!loading && <ProjectForm user={user} />}
+      {!loading && <ProjectForm />}
     </Layout>
   )
 }
