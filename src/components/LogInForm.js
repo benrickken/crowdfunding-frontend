@@ -32,7 +32,7 @@ export default function LogInForm() {
     <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
         <Typography component='h1' variant='h5'>
-          Log in
+          ログイン
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
@@ -40,7 +40,7 @@ export default function LogInForm() {
             margin='normal'
             required
             fullWidth
-            label='Email Address'
+            label='メールアドレス'
             name='email'
             type='email'
             autoComplete='email'
@@ -53,26 +53,26 @@ export default function LogInForm() {
             margin='normal'
             required
             fullWidth
-            label='Password'
+            label='パスワード'
             name='password'
             type='password'
             autoComplete='current-password'
             value={password}
             onChange={event => setPassword(event.target.value)}
           />
-          <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
+          <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='ログイン状態を保存する' />
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-            Log In
+            ログイン
           </Button>
           <Grid container>
             <Grid item xs>
               <Link href='#' variant='body2'>
-                Forgot password?
+                パスワードを忘れた方はこちら
               </Link>
             </Grid>
             <Grid item>
               <Link href='/sign_up' variant='body2'>
-                Don't have an account? Sign Up
+                新規登録はこちら
               </Link>
             </Grid>
           </Grid>

@@ -38,8 +38,8 @@ export default function ProjectForm({ user }) {
   return (
     <Container component='main' maxWidth='sm'>
       <div className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Create new project
+        <Typography component='h1' variant='h4'>
+          プロジェクトの作成
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
@@ -47,7 +47,7 @@ export default function ProjectForm({ user }) {
             margin='normal'
             required
             fullWidth
-            label='Title'
+            label='タイトル'
             name='title'
             autoComplete='title'
             autoFocus
@@ -86,13 +86,14 @@ export default function ProjectForm({ user }) {
             required
             fullWidth
             multiline
-            label='Description'
+            label='説明'
             name='description'
             autoComplete='description'
             autoFocus
             value={description}
             onChange={event => setDescription(event.target.value)}
           />
+
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
             作成
           </Button>

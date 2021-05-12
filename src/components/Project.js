@@ -22,7 +22,8 @@ export default function Project({ project }) {
             {project.title}
           </Typography>
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
-            目標金額: {project.targetAmount} 残り: {formatDistance(new Date(project.dueDate), new Date())}
+            現在: {project.supportedAmount}円 支援者数: {project.supportersCount}人 残り:{' '}
+            {formatDistance(new Date(project.dueDate), new Date())}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
             {project.description}

@@ -21,7 +21,7 @@ export default function Header({ user, loading }) {
     <AppBar position='static'>
       <Toolbar>
         <Link href='/'>
-          <Typography variant='h6' className={classes.title}>
+          <Typography style={{ cursor: 'pointer' }} variant='h6' className={classes.title}>
             Crowdfunding
           </Typography>
         </Link>
@@ -35,16 +35,16 @@ export default function Header({ user, loading }) {
                 <Button color='inherit'>{user.name}</Button>
               </Link>
               <a style={{ cursor: 'pointer' }} onClick={logOut}>
-                <Button color='inherit'>Log out</Button>
+                <Button color='inherit'>ログアウト</Button>
               </a>
             </>
           ) : (
             <>
               <Link href='/log_in'>
-                <Button color='inherit'>Log in</Button>
+                <Button color='inherit'>ログイン</Button>
               </Link>
               <Link href='/sign_up'>
-                <Button color='inherit'>Sign up</Button>
+                <Button color='inherit'>新規登録</Button>
               </Link>
             </>
           ))}
