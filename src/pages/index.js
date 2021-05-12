@@ -11,7 +11,7 @@ export default function Home({ projects }) {
   return (
     <Layout user={user} loading={loading}>
       <Typography gutterBottom variant='h3' component='h1'>
-        Projects
+        新着のプロジェクト
       </Typography>
       <Grid container spacing={6}>
         {projects.map(project => (

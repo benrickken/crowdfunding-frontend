@@ -33,7 +33,7 @@ export default function SignUpForm() {
     <Container component='main' maxWidth='xs'>
       <div className={classes.paper}>
         <Typography component='h1' variant='h5'>
-          Sign up
+          新規登録
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
@@ -41,7 +41,7 @@ export default function SignUpForm() {
             margin='normal'
             required
             fullWidth
-            label='Username'
+            label='ユーザー名'
             name='name'
             autoComplete='name'
             autoFocus
@@ -53,7 +53,7 @@ export default function SignUpForm() {
             margin='normal'
             required
             fullWidth
-            label='Email Address'
+            label='メールアドレス'
             name='email'
             type='email'
             autoComplete='email'
@@ -66,7 +66,7 @@ export default function SignUpForm() {
             margin='normal'
             required
             fullWidth
-            label='Password'
+            label='パスワード'
             name='password'
             type='password'
             autoComplete='current-password'
@@ -74,12 +74,12 @@ export default function SignUpForm() {
             onChange={event => setPassword(event.target.value)}
           />
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-            Sign up
+            新規登録
           </Button>
           <Grid container>
             <Grid item>
               <Link href='/log_in' variant='body2'>
-                Already have an account? Log in
+                ログインはこちら
               </Link>
             </Grid>
           </Grid>
