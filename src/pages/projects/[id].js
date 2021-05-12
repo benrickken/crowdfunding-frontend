@@ -1,3 +1,4 @@
+import { formatDistance } from 'date-fns'
 import request from '../../utils/request'
 import useSWR from 'swr'
 import Typography from '@material-ui/core/Typography'
@@ -61,9 +62,9 @@ export default function ProjectsShow(props) {
                 {project.supportersCount} 人
               </Typography>
               <Typography color='textSecondary' gutterBottom>
-                募集終了日
+                募集終了まで残り
               </Typography>
-              <Typography variant='h3'>{project.dueDate}</Typography>
+              <Typography variant='h3'>{formatDistance(new Date(project.dueDate), new Date())}</Typography>
             </CardContent>
           </Card>
         </Grid>
