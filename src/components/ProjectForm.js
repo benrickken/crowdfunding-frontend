@@ -97,6 +97,13 @@ export default function ProjectForm() {
             onChange={event => setDescription(event.target.value)}
           />
 
+          <input accept='image/*' hidden id='contained-button-file' multiple type='file' />
+          <label htmlFor='contained-button-file'>
+            <Button variant='contained' color='primary' component='span'>
+              画像のアップロード
+            </Button>
+          </label>
+
           <ProjectReturnForm setProjectReturn={setProjectReturn} />
 
           <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
