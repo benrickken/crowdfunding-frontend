@@ -14,7 +14,10 @@ export default function Project({ project }) {
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}
-          image='https://static.camp-fire.jp/uploads/project_version/image/627521/6f7c647f-4dba-46a1-abe3-b1e9dc7588d0.jpg'
+          image={
+            project.imageUrl ||
+            'https://static.camp-fire.jp/uploads/project_version/image/627521/6f7c647f-4dba-46a1-abe3-b1e9dc7588d0.jpg'
+          }
           title={project.title}
         />
         <CardContent>
