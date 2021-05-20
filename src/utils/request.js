@@ -10,7 +10,7 @@ request.interceptors.request.use(
     const { currentUser } = firebase.auth()
     if (currentUser) {
       const token = await currentUser.getIdToken()
-      config.headers = { authorization: `Token ${token}` }
+      config.headers.authorization = `Token ${token}`
     }
     return config
   },

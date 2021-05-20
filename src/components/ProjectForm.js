@@ -17,20 +17,35 @@ export default function ProjectForm() {
   const [dueDate, setDueDate] = useState('')
   const [description, setDescription] = useState('')
   const [projectReturn, setProjectReturn] = useState({})
+  const [image, setImage] = useState(null)
+
+  const handleImageChange = e => {
+    setImage(e.target.files[0])
+  }
 
   const handleSubmit = async event => {
     event.preventDefault()
 
     const projectParams = {
       title,
+      image,
       target_amount: targetAmount,
       due_date: dueDate,
       description,
       project_returns_attributes: [projectReturn],
     }
 
+    const formData = new FormData()
+    for (const key in projectParams) {
+      formData.append(`project[${key}]`, projectParams[key])
+    }
+
     try {
-      await request.post('/projects', projectParams)
+      await request.post('/projects', formData, {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      })
 
       router.push('/')
     } catch (error) {
@@ -96,6 +111,13 @@ export default function ProjectForm() {
             value={description}
             onChange={event => setDescription(event.target.value)}
           />
+
+          <input accept='image/*' hidden id='contained-button-file' multiple type='file' onChange={handleImageChange} />
+          <label htmlFor='contained-button-file'>
+            <Button variant='contained' color='primary' component='span'>
+              画像のアップロード
+            </Button>
+          </label>
 
           <ProjectReturnForm setProjectReturn={setProjectReturn} />
 
