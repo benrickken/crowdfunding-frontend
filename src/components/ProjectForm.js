@@ -32,12 +32,14 @@ export default function ProjectForm() {
       target_amount: targetAmount,
       due_date: dueDate,
       description,
-      project_returns_attributes: [projectReturn],
     }
 
     const formData = new FormData()
     for (const key in projectParams) {
       formData.append(`project[${key}]`, projectParams[key])
+    }
+    for (const key in projectReturn) {
+      formData.append(`project[project_returns_attributes][][${key}]`, projectReturn[key])
     }
 
     try {
