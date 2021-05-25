@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
-import ProjectReturn from '../../components/ProjectReturn'
+import ProjectReturnList from '../../components/ProjectReturnList'
 
 export default function ProjectsShow(props) {
   const classes = useStyles()
@@ -16,24 +16,9 @@ export default function ProjectsShow(props) {
   const { data: project, mutate: mutateProject } = useSWR(`/projects/${props.project.id}`, projectFetcher, {
     initialData: props.project,
   })
-  const { data: projectReturns, mutate: mutateProjectReturns } = useSWR(
-    `/projects/${props.project.id}/project_returns`,
-    projectReturnsFetcher,
-    {
-      initialData: props.projectReturns,
-    }
-  )
 
-  const handleSupportButtonClick = projectReturnId => async event => {
-    event.preventDefault()
-
-    try {
-      await request.post('/project_supports', { project_return_id: projectReturnId })
-      mutateProject()
-      mutateProjectReturns()
-    } catch (error) {
-      console.log(error)
-    }
+  if (loading) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -74,26 +59,18 @@ export default function ProjectsShow(props) {
         リターンを選ぶ
       </Typography>
 
-      <Grid container spacing={6}>
-        {projectReturns.map(projectReturn => (
-          <Grid key={projectReturn.id} item sm={6} md={4}>
-            <ProjectReturn projectReturn={projectReturn} handleSupportButtonClick={handleSupportButtonClick} />
-          </Grid>
-        ))}
-      </Grid>
+      <ProjectReturnList projectId={project.id} mutateProject={mutateProject} />
     </Layout>
   )
 }
 
 const projectFetcher = url => request.get(url).then(res => res.data.project)
-const projectReturnsFetcher = url => request.get(url).then(res => res.data.projectReturns)
 
 export async function getServerSideProps(context) {
   const { id } = context.params
   const project = await projectFetcher(`/projects/${id}`)
-  const projectReturns = await projectReturnsFetcher(`/projects/${id}/project_returns`)
 
-  return { props: { project, projectReturns } }
+  return { props: { project } }
 }
 
 const useStyles = makeStyles({
