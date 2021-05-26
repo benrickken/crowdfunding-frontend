@@ -34,15 +34,17 @@ export default function ProjectReturn({ projectReturn, handleSupportButtonClick 
             {projectReturn.description}
           </Typography>
 
-          <Button
-            onClick={handleSupportButtonClick(projectReturn.id)}
-            fullWidth
-            variant='contained'
-            color='secondary'
-            disabled={projectReturn.isSupportedByMe}
-          >
-            {projectReturn.isSupportedByMe ? '支援済み' : '支援する'}
-          </Button>
+          {!projectReturn.isCreatedByMe && (
+            <Button
+              onClick={handleSupportButtonClick(projectReturn.id)}
+              fullWidth
+              variant='contained'
+              color='secondary'
+              disabled={projectReturn.isSupportedByMe}
+            >
+              {projectReturn.isSupportedByMe ? '支援済み' : '支援する'}
+            </Button>
+          )}
         </CardContent>
       </Card>
     </div>
