@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
+import Chip from '@material-ui/core/Chip'
 import Typography from '@material-ui/core/Typography'
 
 export default function Project({ project }) {
@@ -25,8 +26,14 @@ export default function Project({ project }) {
             {project.title}
           </Typography>
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
-            現在: {project.supportedAmount}円 支援者数: {project.supportersCount}人 残り:{' '}
-            {formatDistance(new Date(project.dueDate), new Date())}
+            現在: {project.supportedAmount}円
+            {project.progress === 'completed' && <Chip className={classes.chip} size='small' label='達成済' />}
+          </Typography>
+          <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
+            支援者数: {project.supportersCount}人
+          </Typography>
+          <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
+            残り: {formatDistance(new Date(project.dueDate), new Date())}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
             {project.description}
@@ -43,5 +50,8 @@ const useStyles = makeStyles({
   },
   media: {
     height: 140,
+  },
+  chip: {
+    marginLeft: 10,
   },
 })

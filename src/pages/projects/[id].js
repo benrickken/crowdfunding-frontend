@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import Chip from '@material-ui/core/Chip'
 import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturnList from '../../components/ProjectReturnList'
@@ -36,6 +37,7 @@ export default function ProjectsShow(props) {
             <CardContent>
               <Typography color='textSecondary' gutterBottom>
                 合計金額
+                {project.progress === 'completed' && <Chip className={classes.chip} size='small' label='達成済' />}
               </Typography>
               <Typography variant='h3' gutterBottom>
                 ¥ {project.supportedAmount} (目標: ¥ {project.targetAmount})
@@ -76,5 +78,8 @@ export async function getServerSideProps(context) {
 const useStyles = makeStyles({
   return: {
     margin: '30px 0',
+  },
+  chip: {
+    marginLeft: 10,
   },
 })
