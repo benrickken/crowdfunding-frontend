@@ -27,7 +27,7 @@ export default function Project({ project }) {
           </Typography>
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
             現在: {project.supportedAmount}円
-            {project.completeFlag && <Chip className={classes.chip} size='small' label='達成済' />}
+            {project.progress === 'completed' && <Chip className={classes.chip} size='small' label='達成済' />}
           </Typography>
           <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
             支援者数: {project.supportersCount}人

@@ -37,7 +37,7 @@ export default function ProjectsShow(props) {
             <CardContent>
               <Typography color='textSecondary' gutterBottom>
                 合計金額
-                {project.completeFlag && <Chip className={classes.chip} size='small' label='達成済' />}
+                {project.progress === 'completed' && <Chip className={classes.chip} size='small' label='達成済' />}
               </Typography>
               <Typography variant='h3' gutterBottom>
                 ¥ {project.supportedAmount} (目標: ¥ {project.targetAmount})
