@@ -58,16 +58,16 @@ export default function ProjectsShow(props) {
         </Grid>
       </Grid>
 
-      <Typography className={classes.return} variant='h5'>
+      <Typography className={classes.title} variant='h5'>
         リターンを選ぶ
       </Typography>
 
       <ProjectReturnList projectId={project.id} mutateProject={mutateProject} />
 
-      <Typography className={classes.return} variant='h5'>
+      <Typography className={classes.title} variant='h5'>
         コメント
       </Typography>
-      
+
       <CommentList projectId={project.id} />
     </Layout>
   )
@@ -83,7 +83,7 @@ export async function getServerSideProps(context) {
 }
 
 const useStyles = makeStyles({
-  return: {
+  title: {
     margin: '30px 0',
   },
   chip: {
