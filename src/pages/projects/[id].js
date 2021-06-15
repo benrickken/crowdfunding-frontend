@@ -10,6 +10,7 @@ import Chip from '@material-ui/core/Chip'
 import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturnList from '../../components/ProjectReturnList'
+import CommentList from '../../components/CommentList'
 
 export default function ProjectsShow(props) {
   const classes = useStyles()
@@ -62,6 +63,12 @@ export default function ProjectsShow(props) {
       </Typography>
 
       <ProjectReturnList projectId={project.id} mutateProject={mutateProject} />
+
+      <Typography className={classes.return} variant='h5'>
+        コメント
+      </Typography>
+      
+      <CommentList projectId={project.id} />
     </Layout>
   )
 }

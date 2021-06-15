@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import Grid from '@material-ui/core/Grid'
 import ProjectReturn from '../components/ProjectReturn'
 
-export default function ProjectsReturnList({ projectId, mutateProject }) {
+export default function ProjectReturnList({ projectId, mutateProject }) {
   const { data: projectReturns, mutate: mutateProjectReturns } = useSWR(
     `/projects/${projectId}/project_returns`,
     projectReturnsFetcher
