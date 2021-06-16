@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField'
 export default function CommentForm({ projectId, mutateComment }) {
   const classes = useStyles()
   const [body, setBody] = useState('')
+  const [errorMessages, setErrorMessages] = useState([])
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -15,8 +16,9 @@ export default function CommentForm({ projectId, mutateComment }) {
       await request.post(`/projects/${projectId}/comments`, { body })
       mutateComment()
       setBody('')
+      setErrorMessages([])
     } catch (error) {
-      console.log(error)
+      setErrorMessages(error.response.data)
     }
   }
 
@@ -34,6 +36,10 @@ export default function CommentForm({ projectId, mutateComment }) {
         autoFocus
         value={body}
         onChange={event => setBody(event.target.value)}
+        error={errorMessages.length > 0}
+        helperText={errorMessages.map(errorMessage => (
+          <div>{errorMessage}</div>
+        ))}
       />
 
       <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
