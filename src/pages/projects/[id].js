@@ -10,6 +10,7 @@ import Chip from '@material-ui/core/Chip'
 import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturnList from '../../components/ProjectReturnList'
+import CommentList from '../../components/CommentList'
 
 export default function ProjectsShow(props) {
   const classes = useStyles()
@@ -57,11 +58,17 @@ export default function ProjectsShow(props) {
         </Grid>
       </Grid>
 
-      <Typography className={classes.return} variant='h5'>
+      <Typography className={classes.title} variant='h5'>
         リターンを選ぶ
       </Typography>
 
       <ProjectReturnList projectId={project.id} mutateProject={mutateProject} />
+
+      <Typography className={classes.title} variant='h5'>
+        コメント
+      </Typography>
+
+      <CommentList projectId={project.id} />
     </Layout>
   )
 }
@@ -76,7 +83,7 @@ export async function getServerSideProps(context) {
 }
 
 const useStyles = makeStyles({
-  return: {
+  title: {
     margin: '30px 0',
   },
   chip: {
