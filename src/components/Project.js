@@ -24,18 +24,18 @@ export default function Project({ project }) {
         <CardContent>
           <Typography gutterBottom variant='h5' component='h2'>
             {project.title}
-          </Typography>
-          <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
-            現在: {project.supportedAmount}円
             {project.progress === 'completed' && <Chip className={classes.chip} size='small' label='達成済' />}
           </Typography>
-          <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
+          <Typography gutterBottom variant='body2' color='textSecondary'>
+            現在: {project.supportedAmount}円
+          </Typography>
+          <Typography gutterBottom variant='body2' color='textSecondary'>
             支援者数: {project.supportersCount}人
           </Typography>
-          <Typography gutterBottom variant='body2' color='textSecondary' component='p'>
+          <Typography gutterBottom variant='body2' color='textSecondary'>
             残り: {formatDistance(new Date(project.dueDate), new Date())}
           </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography variant='body2' color='textSecondary'>
             {project.description}
           </Typography>
         </CardContent>
