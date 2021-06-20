@@ -8,7 +8,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 
-export default function HeaderNotificationMenu() {
+export default function HeaderNotificationMenu({ unreadNotificationsCount }) {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
   const notificationAnchorRef = useRef(null)
   const { data: notifications } = useSWR('/me/notifications', notificationsFetcher)
@@ -24,7 +24,7 @@ export default function HeaderNotificationMenu() {
   return (
     <>
       <IconButton color='inherit' onClick={handleNotificationOpen} ref={notificationAnchorRef}>
-        <Badge badgeContent={notifications && notifications.length} color='secondary'>
+        <Badge badgeContent={unreadNotificationsCount} color='secondary'>
           <NotificationsIcon />
         </Badge>
       </IconButton>

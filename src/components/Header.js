@@ -32,7 +32,7 @@ export default function Header({ user, loading }) {
               <Link href='/projects/new'>
                 <Button color='inherit'>はじめる</Button>
               </Link>
-              <HeaderNotificationMenu />
+              <HeaderNotificationMenu unreadNotificationsCount={user.unreadNotificationsCount} />
               <Link href='/profile'>
                 <Button color='inherit'>{user.name}</Button>
               </Link>
