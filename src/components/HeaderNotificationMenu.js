@@ -15,6 +15,7 @@ export default function HeaderNotificationMenu({ unreadNotificationsCount }) {
 
   const handleNotificationOpen = () => {
     setIsNotificationOpen(true)
+    request.patch('/me/read_notifications')
   }
 
   const handleNotificationClose = () => {
