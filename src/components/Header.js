@@ -51,7 +51,7 @@ export default function Header({ user, loading }) {
                 <Button color='inherit'>はじめる</Button>
               </Link>
               <IconButton color='inherit' onClick={handleNotificationOpen} ref={notificationAnchorRef}>
-                <Badge badgeContent={notifications.length} color='secondary'>
+                <Badge badgeContent={notifications && notifications.length} color='secondary'>
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
