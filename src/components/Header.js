@@ -66,8 +66,16 @@ export default function Header({ user, loading }) {
                 open={isNotificationOpen}
                 onClose={handleNotificationClose}
               >
-                {notifications.length > 0 ? (
-                  notifications.map(notification => <MenuItem key={notification.id}>{notification.body}</MenuItem>)
+                {notifications && notifications.length > 0 ? (
+                  notifications.map(notification => (
+                    <MenuItem key={notification.id}>
+                      {notification.link !== null ? (
+                        <Link href={notification.link}>{notification.body}</Link>
+                      ) : (
+                        notification.body
+                      )}
+                    </MenuItem>
+                  ))
                 ) : (
                   <MenuItem>通知はありません</MenuItem>
                 )}
