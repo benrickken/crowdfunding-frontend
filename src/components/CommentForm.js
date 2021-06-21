@@ -37,9 +37,7 @@ export default function CommentForm({ projectId, mutateComment }) {
         value={body}
         onChange={event => setBody(event.target.value)}
         error={errorMessages.length > 0}
-        helperText={errorMessages.map(errorMessage => (
-          <div>{errorMessage}</div>
-        ))}
+        helperText={errorMessages.length > 0 && errorMessages.map(errorMessage => <div>{errorMessage}</div>)}
       />
 
       <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>

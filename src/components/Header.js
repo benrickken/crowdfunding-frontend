@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import firebase from '../utils/Firebase'
+import HeaderNotificationMenu from './HeaderNotificationMenu'
 
 export default function Header({ user, loading }) {
   const classes = useStyles()
@@ -31,6 +32,7 @@ export default function Header({ user, loading }) {
               <Link href='/projects/new'>
                 <Button color='inherit'>はじめる</Button>
               </Link>
+              <HeaderNotificationMenu unreadNotificationsCount={user.unreadNotificationsCount} />
               <Link href='/profile'>
                 <Button color='inherit'>{user.name}</Button>
               </Link>
