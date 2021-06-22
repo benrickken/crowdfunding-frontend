@@ -28,7 +28,6 @@ export default function ProjectForm() {
 
     const projectParams = {
       title,
-      image,
       target_amount: targetAmount,
       due_date: dueDate,
       description,
@@ -38,6 +37,13 @@ export default function ProjectForm() {
     for (const key in projectParams) {
       formData.append(`project[${key}]`, projectParams[key])
     }
+
+    // NOTE: imageがない場合にRails側に送るとActiveSupport::MessageVerifier::InvalidSignatureが起きてしまう
+    // https://github.com/benrickken/crowdfunding-api/issues/46
+    if (image) {
+      formData.append('project[image]', image)
+    }
+
     for (const key in projectReturn) {
       formData.append(`project[project_returns_attributes][][${key}]`, projectReturn[key])
     }
