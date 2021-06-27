@@ -11,6 +11,7 @@ import useAuthState from '../../hooks/useAuthState'
 import Layout from '../../components/Layout'
 import ProjectReturnList from '../../components/ProjectReturnList'
 import CommentList from '../../components/CommentList'
+import FavoriteButton from '../../components/FavoriteButton'
 
 export default function ProjectsShow(props) {
   const classes = useStyles()
@@ -25,11 +26,21 @@ export default function ProjectsShow(props) {
 
   return (
     <Layout user={user} loading={loading}>
-      <Typography gutterBottom variant='h4' component='h1'>
-        {project.title}
-      </Typography>
-
       <Grid container>
+        <Grid item sm={6}>
+          <Typography gutterBottom variant='h4' component='h1'>
+            {project.title}
+          </Typography>
+        </Grid>
+        <Grid item sm={6}>
+          {user && (
+            <FavoriteButton
+              projectId={project.id}
+              favoritedCount={project.favoritedCount}
+              mutateProject={mutateProject}
+            />
+          )}
+        </Grid>
         <Grid item sm={6}>
           <img src='https://static.camp-fire.jp/uploads/project_version/image/627521/6f7c647f-4dba-46a1-abe3-b1e9dc7588d0.jpg' />
         </Grid>
