@@ -38,6 +38,7 @@ export default function ProjectsShow(props) {
               projectId={project.id}
               favoritedCount={project.favoritedCount}
               mutateProject={mutateProject}
+              project={project}
             />
           )}
         </Grid>
