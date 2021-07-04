@@ -34,11 +34,7 @@ export default function ProjectsShow(props) {
         </Grid>
         <Grid item sm={6}>
           {user && (
-            <FavoriteButton
-              projectId={project.id}
-              favoritedCount={project.favoritedCount}
-              mutateProject={mutateProject}
-            />
+            <FavoriteButton project={project} favoritedCount={project.favoritedCount} mutateProject={mutateProject} />
           )}
         </Grid>
         <Grid item sm={6}>

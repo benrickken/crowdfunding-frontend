@@ -4,8 +4,8 @@ import Button from '@material-ui/core/Button'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 
-export default function FavoriteButton({ projectId, favoritedCount, mutateProject }) {
-  const { data: favorite, mutate: mutateFavorite } = useSWR(`/projects/${projectId}/favorite`, favoriteFetcher)
+export default function FavoriteButton({ project, favoritedCount, mutateProject }) {
+  const { data: favorite, mutate: mutateFavorite } = useSWR(`/projects/${project.id}/favorite`, favoriteFetcher)
   if (favorite === undefined) {
     return null
   }
@@ -14,9 +14,15 @@ export default function FavoriteButton({ projectId, favoritedCount, mutateProjec
 
   const handleClick = async () => {
     if (isFavorited) {
-      await request.delete(`/projects/${projectId}/favorite`)
+      mutateFavorite(null, false)
+      mutateProject({ ...project, favoritedCount: project.favoritedCount-- }, false)
+
+      await request.delete(`/projects/${project.id}/favorite`)
     } else {
-      await request.post(`/projects/${projectId}/favorite`)
+      mutateFavorite({ id: 0 }, false)
+      mutateProject({ ...project, favoritedCount: project.favoritedCount++ }, false)
+
+      await request.post(`/projects/${project.id}/favorite`)
     }
 
     mutateFavorite()
