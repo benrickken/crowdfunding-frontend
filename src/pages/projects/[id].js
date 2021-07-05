@@ -33,9 +33,7 @@ export default function ProjectsShow(props) {
           </Typography>
         </Grid>
         <Grid item sm={6}>
-          {user && (
-            <FavoriteButton project={project} favoritedCount={project.favoritedCount} mutateProject={mutateProject} />
-          )}
+          {user && <FavoriteButton project={project} mutateProject={mutateProject} />}
         </Grid>
         <Grid item sm={6}>
           <img src='https://static.camp-fire.jp/uploads/project_version/image/627521/6f7c647f-4dba-46a1-abe3-b1e9dc7588d0.jpg' />
